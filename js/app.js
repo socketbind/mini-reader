@@ -3,48 +3,73 @@ import "regenerator-runtime/runtime";
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ReactReader, ReactReaderStyle } from "react-reader";
+import {ReactReader, ReactReaderStyle} from "react-reader";
+import {Book} from "./utils";
 
-import mobyDick from '../moby-dick.epub';
+class BookReader extends React.Component {
 
-const customStyle = Object.assign({}, ReactReaderStyle, {
-    container: {
+  render() {
+    const {epubUrl, title, theme} = this.props;
+
+    const customStyle = Object.assign({}, ReactReaderStyle, {
+      container: {
         ...ReactReaderStyle.container,
         overflow: 'hidden',
         width: '100%',
         height: '100%'
-    },
-    readerArea: {
+      },
+      readerArea: {
         ...ReactReaderStyle.readerArea,
-        background: '#f4ddb9'
-    }
-});
+        background: theme.body.background
+      }
+    });
 
-class App extends React.Component {
-    getRendition = (rendition) => {
-        rendition.themes.default({
-            body: {
-                background: '#f4ddb9',
-                color: '#000'
-            }
-        });
+    const getRendition = (rendition) => {
+      rendition.themes.default(theme);
     };
 
-    render() {
-        return <ReactReader
-            className="reader"
-            url={mobyDick}
-            title={"Moby Dick"}
-            swipeable={true}
-            showToc={false}
-            styles={customStyle}
-            location={localStorage.getItem('epubLocation')}
-            locationChanged={epubcifi => localStorage.setItem('epubLocation', epubcifi)}
-            getRendition={this.getRendition}
-        />
-    }
+    return <ReactReader
+      className="reader"
+      url={epubUrl}
+      title={title}
+      swipeable={true}
+      showToc={false}
+      styles={customStyle}
+      location={localStorage.getItem('epubLocation')}
+      locationChanged={epubcifi => localStorage.setItem('epubLocation', epubcifi)}
+      getRendition={getRendition}
+    />
+  }
+}
+
+class Loading extends React.Component {
+  render() {
+    return "Loading...";
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {loading: true};
+  }
+
+  componentDidMount() {
+    Book.load().then(book =>
+      this.setState({loading: false, book})
+    );
+  }
+
+  render() {
+    return this.state.loading ? <Loading/> : <BookReader
+      epubUrl={this.state.book.epubUrl}
+      title={this.state.book.manifest.title}
+      theme={this.state.book.manifest.theme}
+    />
+  }
 }
 
 ReactDOM.render(
-    <App/>, document.getElementById('app')
+  <App/>, document.getElementById('app')
 );
