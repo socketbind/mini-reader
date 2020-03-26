@@ -56,12 +56,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    Book.load().then(book =>
-      this.setState({loading: false, book})
-    );
+    Book.load().then(book => {
+      document.title = book.manifest.title;
+      book.setupHead();
+
+      this.setState({loading: false, book});
+    });
   }
 
   render() {
+
     return this.state.loading ? <Loading/> : <BookReader
       epubUrl={this.state.book.epubUrl}
       title={this.state.book.manifest.title}
