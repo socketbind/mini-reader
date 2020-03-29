@@ -1,4 +1,4 @@
-import {epubUrl} from "./js/cdn";
+import {bookManifestUrl} from "./js/cdn";
 import urls from './assets.urls'
 
 const appVersion = (() => {
@@ -20,7 +20,7 @@ self.addEventListener('install', function(event) {
 
   const urlsToCache = [
     '/',
-    epubUrl,
+    bookManifestUrl,
     ...Object.values(urls)
   ];
 
@@ -58,4 +58,18 @@ self.addEventListener('fetch', function(event) {
         }
       )
   );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data.cacheAssets) {
+    const newAssets = event.data.cacheAssets;
+    console.log('Adding URLs to cache: ' + newAssets.join(', '));
+
+    event.waitUntil(
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          return cache.addAll(newAssets);
+        })
+    );
+  }
 });

@@ -13,9 +13,18 @@ export class Book {
 
       navigator.serviceWorker.register('/worker.js', {
         scope: '/'
-      }).then(function(registration) {
+      }).then((registration) => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
+
+        if (registration.active) {
+          const serviceWorker = registration.active;
+
+          serviceWorker.postMessage({ cacheAssets: [
+              this.epubUrl,
+              ...this.manifest.icons.map(icon => icon.src)
+          ]});
+        }
+      }, (err) => {
         console.error('ServiceWorker registration failed: ', err);
       });
     }
