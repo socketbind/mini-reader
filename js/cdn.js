@@ -18,3 +18,4 @@ const identifier = determineBookIdentifier();
 const contentBase = `${cdnBase}${identifier}`;
 
 export const bookManifestUrl = `${contentBase}/book.json`;
+export const epubUrl = `${contentBase}/book.epub`;
