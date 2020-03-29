@@ -1,76 +1,55 @@
 import "regenerator-runtime/runtime";
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
-
-import {ReactReader, ReactReaderStyle} from "react-reader";
-import {Book} from "./utils";
-
-class BookReader extends React.Component {
-
-  render() {
-    const {epubUrl, title, theme} = this.props;
-
-    const customStyle = Object.assign({}, ReactReaderStyle, {
-      container: {
-        ...ReactReaderStyle.container,
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%'
-      },
-      readerArea: {
-        ...ReactReaderStyle.readerArea,
-        background: theme.body.background
-      }
-    });
-
-    const getRendition = (rendition) => {
-      rendition.themes.default(theme);
-    };
-
-    return <ReactReader
-      className="reader"
-      url={epubUrl}
-      title={title}
-      swipeable={true}
-      showToc={false}
-      styles={customStyle}
-      location={localStorage.getItem('epubLocation')}
-      locationChanged={epubcifi => localStorage.setItem('epubLocation', epubcifi)}
-      getRendition={getRendition}
-    />
-  }
-}
-
-class Loading extends React.Component {
-  render() {
-    return "Loading...";
-  }
-}
+import {Book} from "./book";
+import {BookReader} from "./bookReader";
+import {InstallPrompt} from "./installPrompt";
+import {Loading} from "./loading";
+import config from "./config";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {loading: true};
+    this.state = {
+      loading: true,
+      deferredPrompt: null,
+      shouldPrompt: config.shouldPromptInstall.get()
+    };
   }
 
   componentDidMount() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.setState({deferredPrompt: e});
+    });
+
     Book.load().then(book => {
-      document.title = book.manifest.title;
-      book.setupHead();
+      document.title = book.manifest.name;
+
+      book.applyManifest();
+
+      book.setupWorker();
 
       this.setState({loading: false, book});
     });
   }
 
   render() {
-
-    return this.state.loading ? <Loading/> : <BookReader
+    return this.state.loading ? <Loading/> : <Fragment>
+      {this.state.deferredPrompt && this.state.shouldPrompt && <InstallPrompt
+        deferredPrompt={this.state.deferredPrompt}
+        onHide={() => {
+          this.setState({shouldPrompt: false});
+          config.shouldPromptInstall.set(false);
+        }}
+      />}
+      <BookReader
       epubUrl={this.state.book.epubUrl}
-      title={this.state.book.manifest.title}
-      theme={this.state.book.manifest.theme}
-    />
+      title={this.state.book.manifest.name}
+      theme={this.state.book.theme}
+    /></Fragment>
   }
 }
 
