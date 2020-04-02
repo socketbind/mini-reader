@@ -32,6 +32,8 @@ class App extends React.Component {
 
       book.setupWorker();
 
+      import('pwacompat').then(() => console.log("PWA compat applied."));
+
       this.setState({loading: false, book});
     });
   }

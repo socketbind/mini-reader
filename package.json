@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pwacompat": "^2.0.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-reader": "^0.18.3"
@@ -19,6 +20,7 @@
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-assets-list": "^1.7.1"
+    "parcel-plugin-assets-list": "^1.7.1",
+    "parcel-plugin-bundle-visualiser": "^1.2.0"
   }
 }
