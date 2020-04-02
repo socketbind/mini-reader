@@ -1,4 +1,4 @@
 css/app.css
 js/app.js
-node_modules/pwacompat/src/pwacompat.js
+node_modules/pwacompat/pwacompat.min.js
 node_modules/react-reader/lib/index.js

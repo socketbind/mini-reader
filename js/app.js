@@ -32,7 +32,7 @@ class App extends React.Component {
 
       book.setupWorker();
 
-      import('pwacompat').then(() => console.log("PWA compat applied."));
+      import('../node_modules/pwacompat/pwacompat.min').then(() => console.log("PWA compat applied."));
 
       this.setState({loading: false, book});
     });
