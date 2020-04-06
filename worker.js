@@ -44,6 +44,8 @@ self.addEventListener('activate', event => {
       console.log('Cleared old caches');
     })
   );
+
+  self.clients.claim();
 });
 
 

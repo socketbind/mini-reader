@@ -1,0 +1,32 @@
+{
+  "name": "Moby Dick",
+  "short_name": "Moby Dick",
+  "description": "Moby Dick by Herman Melville",
+  "lang": "en-GB",
+  "icons": [{
+    "src": "https://content.konyv.site/moby-dick/icons/android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+    {
+      "src": "https://content.konyv.site/moby-dick/icons/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "https://content.konyv.site/moby-dick/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "start_url": "/",
+  "related_applications": [{
+    "platform": "web",
+    "url": "https://moby-dick.konyv.site"
+  }]
+}

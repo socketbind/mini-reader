@@ -4,6 +4,7 @@ export class InstallPrompt extends React.Component {
 
   promptInstall(e) {
     e.preventDefault();
+    this.props.onClose && this.props.onClose();
     this.props.deferredPrompt && this.props.deferredPrompt.prompt();
   }
 
@@ -14,7 +15,7 @@ export class InstallPrompt extends React.Component {
 
   render() {
     return <div className="install-prompt">
-      Olvass bárhol, akár Internet nélkül is!
+      <div className="message">Olvass bárhol, akár Internet nélkül is!</div>
       <button onClick={this.promptInstall.bind(this)}>Telepítés</button>
       <button onClick={this.hide.bind(this)}>Elrejtés</button>
     </div>;

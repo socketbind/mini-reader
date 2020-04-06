@@ -1,4 +1,7 @@
 css/app.css
 js/app.js
+svg/startup.svg
+svg/loading.svg
+worker.js
 node_modules/pwacompat/pwacompat.min.js
 node_modules/react-reader/lib/index.js

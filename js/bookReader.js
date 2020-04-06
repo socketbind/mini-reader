@@ -1,5 +1,6 @@
 import React from "react";
 import config from "./config";
+import {Loading} from "./loading";
 
 export class BookReader extends React.Component {
 
@@ -41,11 +42,12 @@ export class BookReader extends React.Component {
         styles={customStyle}
         location={config.epubLocation.get()}
         locationChanged={epubcifi => config.epubLocation.set(epubcifi)}
+        loadingView={<Loading />}
         getRendition={getRendition}
       />
       </div>
     } else {
-      return "Book reader loading..."
+      return <Loading/>
     }
   }
 }

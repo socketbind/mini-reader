@@ -1,3 +1,13 @@
+const startupVisible = Date.now();
+
+const installPromise = new Promise((resolve) => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    resolve(e);
+  });
+})
+
+import '../css/app.css'
 import "regenerator-runtime/runtime";
 
 import React, {Fragment} from 'react';
@@ -20,19 +30,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
+    installPromise.then(e => {
+      console.log('Install promise resolved.');
       this.setState({deferredPrompt: e});
     });
 
     Book.load().then(book => {
-      document.title = book.manifest.name;
-
-      book.applyManifest();
-
       book.setupWorker();
-
-      import('../node_modules/pwacompat/pwacompat.min').then(() => console.log("PWA compat applied."));
 
       this.setState({loading: false, book});
     });
@@ -46,6 +50,9 @@ class App extends React.Component {
           this.setState({shouldPrompt: false});
           config.shouldPromptInstall.set(false);
         }}
+        onClose={() => {
+          this.setState({shouldPrompt: false});
+        }}
       />}
       <BookReader
       epubUrl={this.state.book.epubUrl}
@@ -53,6 +60,26 @@ class App extends React.Component {
       theme={this.state.book.theme}
     /></Fragment>
   }
+}
+
+const readyToRender = Date.now();
+const elapsed = readyToRender - startupVisible;
+
+function fadeOutEarlyLoad() {
+  const elem = document.getElementById('early-load')
+  elem.addEventListener('transitionend', () => {
+    elem.remove();
+    document.getElementById('early-styles').remove();
+  });
+  elem.classList.add('fade-out');
+}
+
+if (elapsed < 2500) {
+  const diff = 2500 - elapsed;
+
+  setTimeout(fadeOutEarlyLoad, diff);
+} else {
+  fadeOutEarlyLoad()
 }
 
 ReactDOM.render(

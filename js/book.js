@@ -30,17 +30,6 @@ export class Book {
     }
   }
 
-  applyManifest() {
-    const stringManifest = JSON.stringify({
-      ...this.manifest,
-      start_url: window.location.origin,
-      scope: window.location.origin
-    });
-    const blob = new Blob([stringManifest], {type: 'application/manifest+json'});
-    const manifestURL = URL.createObjectURL(blob);
-    document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
-  }
-
   static load() {
     return fetch(bookManifestUrl)
       .then(res => res.json())
