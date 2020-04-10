@@ -64,7 +64,7 @@ fun Application.module() {
     val hostRegex = Regex("^([^.]+)\\.konyv\\.site\$")
 
     suspend fun retrieveBookManifest(forHost: String): Map<String, Any> {
-        val ebookId = hostRegex.matchEntire(forHost)?.let { it.groups[0] } ?: "moby-dick"
+        val ebookId = hostRegex.matchEntire(forHost)?.let { it.groups[0]?.value } ?: "moby-dick"
         val bookManifestUrl = "https://content.konyv.site/$ebookId/book.json"
 
         return client.get(bookManifestUrl) {
