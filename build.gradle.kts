@@ -1,3 +1,4 @@
+import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.npm.NpmTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -9,6 +10,7 @@ plugins {
     application
     kotlin("jvm") version "1.3.70"
     id("com.github.node-gradle.node") version "2.2.2"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
 }
 
 group = "site.konyv"
@@ -58,7 +60,7 @@ tasks {
     val frontendInstall by registering(NpmTask::class)
     val frontendBuild by registering(NpmTask::class)
 
-    configure<com.moowork.gradle.node.NodeExtension> {
+    configure<NodeExtension> {
         download = true
     }
 
@@ -91,4 +93,30 @@ tasks {
     processResources {
         dependsOn(frontendBuild)
     }
+
+    withType<Jar> {
+        manifest {
+            attributes(
+                mapOf(
+                    "Main-Class" to application.mainClassName
+                )
+            )
+        }
+    }
+
+    register("stage") {
+        dependsOn("shadowJar")
+
+        doLast {
+            delete(
+                fileTree("build/classes"),
+                fileTree("build/distributions"),
+                fileTree("build/kotlin"),
+                fileTree("build/resources"),
+                fileTree("build/scripts"),
+                fileTree("build/tmp")
+            )
+        }
+    }
+
 }
