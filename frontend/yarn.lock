@@ -687,10 +687,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@custhome/parcel-plugin-bundle-manifest@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@custhome/parcel-plugin-bundle-manifest/-/parcel-plugin-bundle-manifest-1.1.0.tgz#40809f5e9162a5bb0adda325fb69219686480a9a"
-
 "@iarna/toml@^2.2.0":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
@@ -3262,7 +3258,7 @@ pako@~1.0.2, pako@~1.0.5:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
 
-parcel-bundler@^1.12.4:
+parcel-bundler@>=1.10.3:
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/parcel-bundler/-/parcel-bundler-1.12.4.tgz#31223f4ab4d00323a109fce28d5e46775409a9ee"
   dependencies:
@@ -3816,10 +3812,6 @@ purgecss@^1.4.0:
     postcss "^7.0.14"
     postcss-selector-parser "^6.0.0"
     yargs "^14.0.0"
-
-pwacompat@^2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/pwacompat/-/pwacompat-2.0.10.tgz#512da723f01c81ed06225b707d692de8740fc9cd"
 
 q@^1.1.2:
   version "1.5.1"

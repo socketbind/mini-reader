@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-  <title>Reader</title>
   <meta charset="utf-8">
+
+  <title>{{ manifest.name }}</title>
+  <meta name="apple-mobile-web-app-title" content="{{ manifest.name }}">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="{{ manifest.description }}">
 
-  <meta name="Description" content="Put your description here." id="description-placeholder">
-
-  <link rel="dns-prefetch" href="https://content.konyv.site">
   <link rel="preconnect" href="https://content.konyv.site">
+  <link rel="preconnect" href="https://app.konyv.site">
 
-  <link rel="manifest" crossorigin="use-credentials" id="manifest-placeholder" href="site.webmanifest">
-  <link rel="shortcut icon" crossorigin="use-credentials" id="icon-placeholder">
-  <link rel="apple-touch-icon" crossorigin="use-credentials" id="apple-touch-icon-placeholder">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
   <div id="early-load">
