@@ -33,7 +33,6 @@ fun main(args: Array<String>): Unit =
         io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
 fun Application.module() {
     val client = HttpClient() {
         install(HttpTimeout) {
@@ -77,7 +76,6 @@ fun Application.module() {
         static("/") {
             resources("frontend")
         }
-
 
         get("/") {
             val bookManifest = retrieveBookManifest(context.request.host())

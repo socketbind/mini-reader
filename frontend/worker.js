@@ -20,6 +20,7 @@ self.addEventListener('install', function(event) {
 
   const urlsToCache = [
     '/',
+    '/site.webmanifest',
     bookManifestUrl,
     ...Object.values(urls)
   ];

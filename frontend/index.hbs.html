@@ -6,6 +6,7 @@
 
   <title>{{ manifest.name }}</title>
   <meta name="apple-mobile-web-app-title" content="{{ manifest.name }}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="{{ manifest.description }}">
@@ -14,10 +15,14 @@
   <link rel="preconnect" href="https://app.konyv.site">
 
   <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="shortcut icon" crossorigin="use-credentials" href="{{ meta.shortcutIcon }}">
+  <link rel="apple-touch-icon" crossorigin="use-credentials" href="{{ meta.appleTouchIcon }}">
+  <meta name="theme-color" content="{{ meta.themeColor }}">
 </head>
 <body>
   <div id="early-load">
-    <img src="svg/startup.svg" width="100%" height="100%">
+    <img src="svg/startup.svg" width="100%" height="100%" alt="Startup animation">
   </div>
 
   <main id="app"></main>
