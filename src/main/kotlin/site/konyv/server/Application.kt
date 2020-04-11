@@ -62,6 +62,7 @@ fun Application.module() {
     install(ConditionalHeaders)
 
     val hostRegex = Regex("^([^.]+)\\.konyv\\.site\$")
+    val webManifestPath = "/site.webmanifest"
 
     suspend fun retrieveBookManifest(forHost: String): Map<String, Any> {
         val ebookId = hostRegex.matchEntire(forHost)?.let { it.groups[1]?.value } ?: "moby-dick"
@@ -78,13 +79,13 @@ fun Application.module() {
         }
 
         get("/") {
-            val bookManifest = retrieveBookManifest(context.request.host())
-            call.respond(MustacheContent("index.hbs.html", bookManifest))
+            val model = retrieveBookManifest(context.request.host()) + ("webManifestPath" to webManifestPath)
+            call.respond(MustacheContent("index.hbs.html", model))
         }
 
-        get("/site.webmanifest") {
-            val bookManifest = retrieveBookManifest(context.request.host())
-            val webManifest = bookManifest["manifest"]
+        get(webManifestPath) {
+            val bookProperties = retrieveBookManifest(context.request.host())
+            val webManifest = bookProperties["manifest"]
             call.respond(webManifest ?: emptyMap<String, Any>())
         }
 
