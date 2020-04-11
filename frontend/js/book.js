@@ -16,7 +16,7 @@ export class Book {
       }).then((registration) => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
 
-        if (registration.active) {
+        if (registration.active && navigator.onLine) {
           const serviceWorker = registration.active;
 
           serviceWorker.postMessage({ cacheAssets: [
