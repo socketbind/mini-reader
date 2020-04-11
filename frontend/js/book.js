@@ -15,16 +15,23 @@ export class Book {
         scope: '/'
       }).then((registration) => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        return navigator.serviceWorker.ready;
+      })
+      .then((registration) => {
+        if (navigator.onLine) {
+          console.log("Priming caches...");
 
-        if (registration.active && navigator.onLine) {
           const serviceWorker = registration.active;
 
           serviceWorker.postMessage({ cacheAssets: [
               this.epubUrl,
               ...this.manifest.icons.map(icon => icon.src)
-          ]});
+            ]});
+        } else {
+          console.log("Not attempting to prime caches, browser is offline.");
         }
-      }, (err) => {
+      })
+      .catch(err => {
         console.error('ServiceWorker registration failed: ', err);
       });
     }
