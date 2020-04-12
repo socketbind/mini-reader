@@ -42,7 +42,7 @@ body {
     flex-grow: 1;
 }
 
-button {
+.install-prompt button {
     background: #ffffff;
     color: #444444;
     padding: 1em;
