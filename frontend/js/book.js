@@ -3,8 +3,8 @@ import {bookManifestUrl} from './cdn';
 export class Book {
 
   constructor(json) {
-    const {manifest, theme, epubUrl} = json;
-    Object.assign(this, {manifest, theme, epubUrl});
+    const {manifest, theme, epubUrl, uiOverlay} = json;
+    Object.assign(this, {manifest, theme, epubUrl, uiOverlay});
   }
 
   setupWorker() {

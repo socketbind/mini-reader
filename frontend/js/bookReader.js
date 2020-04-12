@@ -22,23 +22,41 @@ export class BookReader extends React.Component {
     });
   }
 
+  mergeWithStyles(baseStyle, ...overlays) {
+    const result = Object.assign({}, baseStyle);
+
+    for (const overlay of overlays) {
+      for (const [key, value] of Object.entries(overlay)) {
+        if (result.hasOwnProperty(key)) {
+          result[key] = { ...result[key], ...value };
+        } else {
+          result[key] = value;
+        }
+      }
+    }
+
+    return result;
+  }
+
   render() {
-    const {epubUrl, title, theme} = this.props;
+    const {epubUrl, title, theme, uiOverlay = {} } = this.props;
     const { ReactReader, ReactReaderStyle, location } = this.state;
 
     if (ReactReader && ReactReaderStyle) {
-      const customStyle = Object.assign({}, ReactReaderStyle, {
-        container: {
-          ...ReactReaderStyle.container,
-          overflow: 'hidden',
-          width: '100%',
-          height: '100%'
-        },
-        readerArea: {
-          ...ReactReaderStyle.readerArea,
-          background: theme.body.background
-        }
-      });
+      const customStyle = this.mergeWithStyles(
+          ReactReaderStyle, {
+            container: {
+              ...ReactReaderStyle.container,
+              overflow: 'hidden',
+              width: '100%',
+              height: '100%'
+            },
+            readerArea: {
+              ...ReactReaderStyle.readerArea,
+              background: theme.body.background
+            }
+          }, uiOverlay
+      )
 
       const getRendition = (rendition) => {
         rendition.themes.default(theme);

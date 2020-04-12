@@ -58,6 +58,7 @@ class App extends React.Component {
       epubUrl={this.state.book.epubUrl}
       title={this.state.book.manifest.name}
       theme={this.state.book.theme}
+      uiOverlay={this.state.book.uiOverlay}
     /></Fragment>
   }
 }
