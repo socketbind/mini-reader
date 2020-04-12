@@ -4,7 +4,11 @@ import {Loading} from "./loading";
 
 export class BookReader extends React.Component {
 
-  state = { ReactReader: null, ReactReaderStyle: null };
+  state = {
+    location: config.epubLocation.get(),
+    ReactReader: null,
+    ReactReaderStyle: null
+  };
 
   componentDidMount() {
     import('react-reader').then(({ ReactReader, ReactReaderStyle }) => {
@@ -12,9 +16,15 @@ export class BookReader extends React.Component {
     });
   }
 
+  onLocationChanged = (location) => {
+    this.setState({location}, () => {
+      config.epubLocation.set(location);
+    });
+  }
+
   render() {
     const {epubUrl, title, theme} = this.props;
-    const { ReactReader, ReactReaderStyle } = this.state;
+    const { ReactReader, ReactReaderStyle, location } = this.state;
 
     if (ReactReader && ReactReaderStyle) {
       const customStyle = Object.assign({}, ReactReaderStyle, {
@@ -38,10 +48,10 @@ export class BookReader extends React.Component {
         url={epubUrl}
         title={title}
         swipeable={true}
-        showToc={false}
+        showToc={true}
         styles={customStyle}
-        location={config.epubLocation.get()}
-        locationChanged={epubcifi => config.epubLocation.set(epubcifi)}
+        location={location}
+        locationChanged={this.onLocationChanged}
         loadingView={<Loading />}
         getRendition={getRendition}
       />
