@@ -14,10 +14,13 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.LogLevel
 import io.ktor.client.features.logging.Logging
 import io.ktor.client.request.get
+import io.ktor.features.CachingHeaders
 import io.ktor.features.ConditionalHeaders
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
+import io.ktor.http.CacheControl
 import io.ktor.http.ContentType
+import io.ktor.http.content.CachingOptions
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.http.contentType
@@ -60,6 +63,24 @@ fun Application.module() {
     }
 
     install(ConditionalHeaders)
+
+    install(CachingHeaders) {
+        val aggressiveCacheTypes = setOf(
+            ContentType.Text.CSS,
+            ContentType.Text.JavaScript,
+            ContentType.Image.SVG,
+            ContentType.Image.PNG,
+            ContentType.Image.JPEG
+        )
+
+        options { outgoingContent ->
+            outgoingContent.contentType?.withoutParameters()
+                .takeIf { it in aggressiveCacheTypes }
+                .let {
+                    CachingOptions(CacheControl.MaxAge(maxAgeSeconds = 31 * 24 * 60 * 60))
+                }
+        }
+    }
 
     val hostRegex = Regex("^([^.]+)\\.konyv\\.site\$")
     val webManifestPath = "/site.webmanifest"
