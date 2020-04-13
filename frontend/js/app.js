@@ -63,7 +63,9 @@ class App extends React.Component {
           this.setState({shouldPrompt: false});
         }}
       />}
-      <InfoButton onClick={this.toggleInfo}/>
+      <div className="toolbar">
+        <InfoButton onClick={this.toggleInfo}/>
+      </div>
       <InfoPanel show={this.state.showInfo} onClose={this.toggleInfo}/>
       <BookReader
       epubUrl={this.state.book.epubUrl}

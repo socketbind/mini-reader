@@ -51,13 +51,16 @@ body {
     margin-right: 1em;
 }
 
-.info-button {
+.toolbar {
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 500;
+}
+
+.info-button {
     width: 32px;
     height: 32px;
-    z-index: 500;
     border: none;
     background: none;
 }
@@ -80,7 +83,8 @@ body {
     height: 100%;
     transition: opacity .3s;
     padding: 0 20%;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .info-panel button.close {
@@ -100,23 +104,27 @@ PURE CSS GUI ICONS
 by Nicolas Gallagher
 */
 
-.info:before {
-    content:"i";
+.icon:before {
     left:3px;
     width:16px;
     height:16px;
+    display: inline-block;
     margin-top:-8px;
     font-size:14px;
-    font-weight:bold;
     line-height:16px;
     text-align:center;
-    color:#fff;
-    background:#2385BA;
-    display: inline-block;
+
     /* css3 */
     -webkit-border-radius:16px;
     -moz-border-radius:16px;
     border-radius:16px;
+}
+
+.info:before {
+    content:"i";
+    color:#fff;
+    font-weight:bold;
+    background:#2385BA;
 }
 
 /* base on pure */
@@ -125,25 +133,9 @@ PURE CSS GUI ICONS
 by Nicolas Gallagher
 */
 
-.close {
-    color:#238500;
-}
-
 .close:before {
     content:"x";
-    left:3px;
-    width:16px;
-    height:16px;
-    margin-top:-8px;
-    font-size:14px;
     font-weight:bold;
-    line-height:16px;
-    text-align:center;
     color:#fff;
     background:#555;
-    display: inline-block;
-    /* css3 */
-    -webkit-border-radius:16px;
-    -moz-border-radius:16px;
-    border-radius:16px;
 }
