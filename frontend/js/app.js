@@ -17,6 +17,8 @@ import {BookReader} from "./bookReader";
 import {InstallPrompt} from "./installPrompt";
 import {Loading} from "./loading";
 import config from "./config";
+import {InfoButton} from "./infoButton";
+import {InfoPanel} from "./infoPanel";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +27,8 @@ class App extends React.Component {
     this.state = {
       loading: true,
       deferredPrompt: null,
-      shouldPrompt: config.shouldPromptInstall.get()
+      shouldPrompt: config.shouldPromptInstall.get(),
+      showInfo: false
     };
   }
 
@@ -42,6 +45,12 @@ class App extends React.Component {
     });
   }
 
+  toggleInfo = () => {
+    const showInfo = !this.state.showInfo;
+    console.log(showInfo);
+    this.setState({showInfo});
+  }
+
   render() {
     return this.state.loading ? <Loading/> : <Fragment>
       {this.state.deferredPrompt && this.state.shouldPrompt && <InstallPrompt
@@ -54,6 +63,8 @@ class App extends React.Component {
           this.setState({shouldPrompt: false});
         }}
       />}
+      <InfoButton onClick={this.toggleInfo}/>
+      <InfoPanel show={this.state.showInfo} onClose={this.toggleInfo}/>
       <BookReader
       epubUrl={this.state.book.epubUrl}
       title={this.state.book.manifest.name}

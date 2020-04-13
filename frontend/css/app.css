@@ -42,11 +42,108 @@ body {
     flex-grow: 1;
 }
 
-.install-prompt button {
+.install-prompt button, .button.close {
     background: #ffffff;
     color: #444444;
     padding: 1em;
     border: none;
     border-radius: 4px;
     margin-right: 1em;
+}
+
+.info-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 32px;
+    height: 32px;
+    z-index: 500;
+    border: none;
+    background: none;
+}
+
+.info-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 501;
+    opacity: 0;
+    height: 0;
+    transition: opacity .3s;
+    background: #ffffff;
+}
+
+.info-panel.show {
+    opacity: 1;
+    height: 100%;
+    transition: opacity .3s;
+    padding: 0 20%;
+    overflow-y: scroll;
+}
+
+.info-panel button.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*
+PURE CSS GUI ICONS
+by Nicolas Gallagher
+*/
+
+.info:before {
+    content:"i";
+    left:3px;
+    width:16px;
+    height:16px;
+    margin-top:-8px;
+    font-size:14px;
+    font-weight:bold;
+    line-height:16px;
+    text-align:center;
+    color:#fff;
+    background:#2385BA;
+    display: inline-block;
+    /* css3 */
+    -webkit-border-radius:16px;
+    -moz-border-radius:16px;
+    border-radius:16px;
+}
+
+/* base on pure */
+/*
+PURE CSS GUI ICONS
+by Nicolas Gallagher
+*/
+
+.close {
+    color:#238500;
+}
+
+.close:before {
+    content:"x";
+    left:3px;
+    width:16px;
+    height:16px;
+    margin-top:-8px;
+    font-size:14px;
+    font-weight:bold;
+    line-height:16px;
+    text-align:center;
+    color:#fff;
+    background:#555;
+    display: inline-block;
+    /* css3 */
+    -webkit-border-radius:16px;
+    -moz-border-radius:16px;
+    border-radius:16px;
 }
