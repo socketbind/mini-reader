@@ -10,6 +10,11 @@ export class BookReader extends React.Component {
     ReactReaderStyle: null
   };
 
+  constructor(props) {
+    super(props);
+    this.rendition = null;
+  }
+
   componentDidMount() {
     import('react-reader').then(({ ReactReader, ReactReaderStyle }) => {
       this.setState({ ReactReader, ReactReaderStyle });
@@ -39,7 +44,7 @@ export class BookReader extends React.Component {
   }
 
   render() {
-    const {epubUrl, title, theme, uiOverlay = {} } = this.props;
+    const { epubUrl, title, theme, uiOverlay = {}, fontSize = 100 } = this.props;
     const { ReactReader, ReactReaderStyle, location } = this.state;
 
     if (ReactReader && ReactReaderStyle) {
@@ -60,7 +65,13 @@ export class BookReader extends React.Component {
 
       const getRendition = (rendition) => {
         rendition.themes.default(theme);
+        rendition.themes.fontSize(`${fontSize}%`);
+        this.rendition = rendition;
       };
+
+      if (this.rendition) {
+        this.rendition.themes.fontSize(`${fontSize}%`);
+      }
 
       return <div className="reader"><ReactReader
         url={epubUrl}

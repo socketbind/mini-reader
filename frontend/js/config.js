@@ -16,7 +16,18 @@ class LocalStorageItem {
   }
 }
 
+class NumericLocalStorageItem extends LocalStorageItem {
+  get() {
+    return parseInt(super.get());
+  }
+
+  set(value) {
+    super.set(value.toString());
+  }
+}
+
 export default {
   epubLocation: new LocalStorageItem('epubLocation'),
-  shouldPromptInstall: new LocalStorageItem('shouldPromptInstall', true)
+  shouldPromptInstall: new LocalStorageItem('shouldPromptInstall', true),
+  fontSize: new NumericLocalStorageItem('fontSize', 100)
 };

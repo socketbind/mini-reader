@@ -42,7 +42,7 @@ body {
     flex-grow: 1;
 }
 
-.install-prompt button, .button.close {
+.install-prompt button {
     background: #ffffff;
     color: #444444;
     padding: 1em;
@@ -58,11 +58,14 @@ body {
     z-index: 500;
 }
 
-.info-button {
+.button {
     width: 32px;
     height: 32px;
     border: none;
     background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
 .info-panel {
@@ -76,6 +79,7 @@ body {
     height: 0;
     transition: opacity .3s;
     background: #ffffff;
+    overflow: hidden;
 }
 
 .info-panel.show {
@@ -91,12 +95,6 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
-    width: 32px;
-    height: 32px;
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
 }
 
 /*
@@ -106,12 +104,12 @@ by Nicolas Gallagher
 
 .icon:before {
     left:3px;
-    width:16px;
-    height:16px;
+    width:24px;
+    height:24px;
     display: inline-block;
     margin-top:-8px;
     font-size:14px;
-    line-height:16px;
+    line-height:24px;
     text-align:center;
 
     /* css3 */
@@ -128,14 +126,24 @@ by Nicolas Gallagher
 }
 
 /* base on pure */
-/*
-PURE CSS GUI ICONS
-by Nicolas Gallagher
-*/
 
 .close:before {
     content:"x";
     font-weight:bold;
     color:#fff;
     background:#555;
+}
+
+.font-increase:before {
+    content:"a+";
+    color:#fff;
+    background:#555;
+    border-radius: 4px;
+}
+
+.font-decrease:before {
+    content:"a-";
+    color:#fff;
+    background:#555;
+    border-radius: 4px;
 }

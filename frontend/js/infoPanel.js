@@ -4,12 +4,12 @@ export class InfoPanel extends React.Component {
 
     render() {
         return (<div className={`info-panel ${!!this.props.show ? "show" : ""}`}>
-            <button className="close icon" onClick={() => this.props.onClose && this.props.onClose()}></button>
+            <button className="button close icon" onClick={() => this.props.onClose && this.props.onClose()}></button>
 
             <h1>Szervusz!</h1>
             <p>
                 A Könyv Site egy non-profit kezdeményezés azért, hogy könnyebben jussanak klasszikusok olvasók kezébe,
-                egy zsebkönyvhöz hasonlító élményt nyújtva.
+                egy zsebkönyvre emlékeztető élményt nyújtva.
             </p>
 
             <p>

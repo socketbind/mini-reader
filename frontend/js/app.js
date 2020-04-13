@@ -15,6 +15,7 @@ import ReactDOM from 'react-dom';
 import {Book} from "./book";
 import {BookReader} from "./bookReader";
 import {InstallPrompt} from "./installPrompt";
+import {FontSizeButton} from "./fontSizeButton";
 import {Loading} from "./loading";
 import config from "./config";
 import {InfoButton} from "./infoButton";
@@ -28,7 +29,8 @@ class App extends React.Component {
       loading: true,
       deferredPrompt: null,
       shouldPrompt: config.shouldPromptInstall.get(),
-      showInfo: false
+      showInfo: false,
+      fontSize: config.fontSize.get()
     };
   }
 
@@ -47,8 +49,19 @@ class App extends React.Component {
 
   toggleInfo = () => {
     const showInfo = !this.state.showInfo;
-    console.log(showInfo);
     this.setState({showInfo});
+  }
+
+  increaseFontSize = () => {
+    const fontSize = this.state.fontSize + 10;
+    this.setState({ fontSize: fontSize });
+    config.fontSize.set(fontSize);
+  }
+
+  decreaseFontSize = () => {
+    const fontSize = this.state.fontSize > 0 ? this.state.fontSize - 10 : 0;
+    this.setState({ fontSize: fontSize });
+    config.fontSize.set(fontSize);
   }
 
   render() {
@@ -64,6 +77,8 @@ class App extends React.Component {
         }}
       />}
       <div className="toolbar">
+        <FontSizeButton variant="decrease" onClick={this.decreaseFontSize} />
+        <FontSizeButton variant="increase" onClick={this.increaseFontSize} />
         <InfoButton onClick={this.toggleInfo}/>
       </div>
       <InfoPanel show={this.state.showInfo} onClose={this.toggleInfo}/>
@@ -72,6 +87,7 @@ class App extends React.Component {
       title={this.state.book.manifest.name}
       theme={this.state.book.theme}
       uiOverlay={this.state.book.uiOverlay}
+      fontSize={this.state.fontSize}
     /></Fragment>
   }
 }
