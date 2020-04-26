@@ -5,7 +5,7 @@ export class InstallPrompt extends React.Component {
   promptInstall(e) {
     e.preventDefault();
     this.props.onClose && this.props.onClose();
-    this.props.deferredPrompt && this.props.deferredPrompt.prompt();
+    this.props.onInstall && this.props.onInstall();
   }
 
   hide(e) {

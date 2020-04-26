@@ -1,12 +1,4 @@
-const startupVisible = Date.now();
-
-const installPromise = new Promise((resolve) => {
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    resolve(e);
-  });
-})
-
+import {iOS} from "./platform";
 import '../css/app.css'
 import "regenerator-runtime/runtime";
 
@@ -19,7 +11,16 @@ import {FontSizeButton} from "./fontSizeButton";
 import {Loading} from "./loading";
 import config from "./config";
 import {InfoButton} from "./infoButton";
-import {InfoPanel} from "./infoPanel";
+import {GeneralInfoPanel, IOSInfoPanel} from "./infoPanel";
+
+const startupVisible = Date.now();
+
+const installPromise = new Promise((resolve) => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    resolve(e);
+  });
+})
 
 class App extends React.Component {
   constructor(props) {
@@ -29,7 +30,8 @@ class App extends React.Component {
       loading: true,
       deferredPrompt: null,
       shouldPrompt: config.shouldPromptInstall.get(),
-      showInfo: false,
+      showGeneralInfo: false,
+      showIosInfo: false,
       fontSize: config.fontSize.get()
     };
   }
@@ -47,9 +49,14 @@ class App extends React.Component {
     });
   }
 
-  toggleInfo = () => {
-    const showInfo = !this.state.showInfo;
-    this.setState({showInfo});
+  toggleGeneralInfo = () => {
+    const showGeneralInfo = !this.state.showGeneralInfo;
+    this.setState({showGeneralInfo});
+  }
+
+  toggleIosInfo = () => {
+    const showIosInfo = !this.state.showIosInfo;
+    this.setState({showIosInfo});
   }
 
   increaseFontSize = () => {
@@ -66,8 +73,8 @@ class App extends React.Component {
 
   render() {
     return this.state.loading ? <Loading/> : <Fragment>
-      {this.state.deferredPrompt && this.state.shouldPrompt && <InstallPrompt
-        deferredPrompt={this.state.deferredPrompt}
+      {(this.state.deferredPrompt || iOS) && this.state.shouldPrompt && <InstallPrompt
+        onInstall={() => (this.state.deferredPrompt && this.state.deferredPrompt.prompt()) || this.toggleIosInfo()}
         onHide={() => {
           this.setState({shouldPrompt: false});
           config.shouldPromptInstall.set(false);
@@ -81,7 +88,8 @@ class App extends React.Component {
         <FontSizeButton variant="increase" onClick={this.increaseFontSize} />
         <InfoButton onClick={this.toggleInfo}/>
       </div>
-      <InfoPanel show={this.state.showInfo} onClose={this.toggleInfo}/>
+      <GeneralInfoPanel show={this.state.showGeneralInfo} onClose={this.toggleGeneralInfo}/>
+      <IOSInfoPanel show={this.state.showIosInfo} onClose={this.toggleGeneralInfo} />
       <BookReader
       epubUrl={this.state.book.epubUrl}
       title={this.state.book.manifest.name}
