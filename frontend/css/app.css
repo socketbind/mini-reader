@@ -74,10 +74,14 @@ body {
     right: 0;
     bottom: 0;
     z-index: 501;
-    padding: 0 20%;
+    padding: 0 10%;
     overflow-x: hidden;
     overflow-y: auto;
     background: #ffffff;
+}
+
+.info-panel img {
+    width: 100%;
 }
 
 .info-panel-enter {

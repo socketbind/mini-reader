@@ -89,7 +89,7 @@ class App extends React.Component {
         <InfoButton onClick={this.toggleGeneralInfo}/>
       </div>
       <GeneralInfoPanel show={this.state.showGeneralInfo} onClose={this.toggleGeneralInfo}/>
-      <IOSInfoPanel show={this.state.showIosInfo} onClose={this.toggleGeneralInfo} />
+      <IOSInfoPanel show={this.state.showIosInfo} onClose={this.toggleIosInfo} />
       <BookReader
       epubUrl={this.state.book.epubUrl}
       title={this.state.book.manifest.name}

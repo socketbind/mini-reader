@@ -6,10 +6,13 @@ import {CSSTransition} from "react-transition-group";
 export class InfoPanel extends React.Component {
 
     render() {
+        const { show, onClose, children } = this.props;
+
         return (
-            <CSSTransition in={this.props.show} classNames="info-panel" unmountOnExit timeout={300}>
+            <CSSTransition in={show} classNames="info-panel" unmountOnExit timeout={300}>
                 <div className="info-panel">
-                    {this.props.children}
+                    <button className="button close icon" onClick={() => onClose && onClose()}/>
+                    {children}
                 </div>
             </CSSTransition>
         )
@@ -20,8 +23,6 @@ export class InfoPanel extends React.Component {
 export class GeneralInfoPanel extends React.Component {
     render() {
         return (<InfoPanel {...this.props}>
-            <button className="button close icon" onClick={() => this.props.onClose && this.props.onClose()}></button>
-
             <h1>Szervusz!</h1>
             <p>
                 A Könyv Site egy non-profit kezdeményezés azért, hogy könnyebben jussanak klasszikusok olvasók kezébe,
