@@ -103,22 +103,25 @@ class App extends React.Component {
 const readyToRender = Date.now();
 const elapsed = readyToRender - startupVisible;
 
+const earyLoadElement = document.getElementById('early-load')
+
 function fadeOutEarlyLoad() {
-  const elem = document.getElementById('early-load')
-  elem.addEventListener('transitionend', () => {
-    elem.remove();
+  earyLoadElement.addEventListener('transitionend', () => {
+    earyLoadElement.remove();
     document.getElementById('early-styles').remove();
   });
-  elem.classList.add('fade-out');
+  earyLoadElement.classList.add('fade-out');
 }
 
-if (elapsed < 2500) {
+if (config.firstTime.get() && elapsed < 2500) {
   const diff = 2500 - elapsed;
 
   setTimeout(fadeOutEarlyLoad, diff);
 } else {
-  fadeOutEarlyLoad()
+  earyLoadElement.remove();
 }
+
+config.firstTime.set(false);
 
 ReactDOM.render(
   <App/>, document.getElementById('app')

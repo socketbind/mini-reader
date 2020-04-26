@@ -26,8 +26,19 @@ class NumericLocalStorageItem extends LocalStorageItem {
   }
 }
 
+class BooleanLocalStorageItem extends LocalStorageItem {
+  get() {
+    return super.get().toUpperCase() === "TRUE";
+  }
+
+  set(value) {
+    super.set(value.toString().toUpperCase());
+  }
+}
+
 export default {
+  firstTime: new BooleanLocalStorageItem("firstTime", true),
   epubLocation: new LocalStorageItem('epubLocation'),
-  shouldPromptInstall: new LocalStorageItem('shouldPromptInstall', true),
+  shouldPromptInstall: new BooleanLocalStorageItem('shouldPromptInstall', true),
   fontSize: new NumericLocalStorageItem('fontSize', 100)
 };
