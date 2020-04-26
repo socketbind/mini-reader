@@ -1,9 +1,8 @@
-import {iOS} from "./platform";
 import '../css/app.css'
 import "regenerator-runtime/runtime";
 
+import {iOS} from "./platform";
 import React, {Fragment} from 'react';
-import ReactDOM from 'react-dom';
 import {Book} from "./book";
 import {BookReader} from "./bookReader";
 import {InstallPrompt} from "./installPrompt";
@@ -13,8 +12,6 @@ import config from "./config";
 import {InfoButton} from "./infoButton";
 import {GeneralInfoPanel, IOSInfoPanel} from "./infoPanel";
 
-const startupVisible = Date.now();
-
 const installPromise = new Promise((resolve) => {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -22,7 +19,7 @@ const installPromise = new Promise((resolve) => {
   });
 })
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -99,30 +96,3 @@ class App extends React.Component {
     /></Fragment>
   }
 }
-
-const readyToRender = Date.now();
-const elapsed = readyToRender - startupVisible;
-
-const earyLoadElement = document.getElementById('early-load')
-
-function fadeOutEarlyLoad() {
-  earyLoadElement.addEventListener('transitionend', () => {
-    earyLoadElement.remove();
-    document.getElementById('early-styles').remove();
-  });
-  earyLoadElement.classList.add('fade-out');
-}
-
-if (config.firstTime.get() && elapsed < 2500) {
-  const diff = 2500 - elapsed;
-
-  setTimeout(fadeOutEarlyLoad, diff);
-} else {
-  earyLoadElement.remove();
-}
-
-config.firstTime.set(false);
-
-ReactDOM.render(
-  <App/>, document.getElementById('app')
-);

@@ -103,6 +103,10 @@ tasks {
             exclude(".cache", "dist", "node_modules")
         })
         outputs.dir("$frontendProjectDir/dist")
+
+        doFirst {
+            frontendDistDir.deleteRecursively()
+        }
     }
 
     processResources {

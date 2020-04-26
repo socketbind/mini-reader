@@ -4,6 +4,6 @@ export class FontSizeButton extends React.Component {
     render() {
         const { variant, ...rest }  = this.props;
 
-        return (<button class={`button icon font-${variant || 'increase'}`} {...rest}></button>)
+        return (<button className={`button icon font-${variant || 'increase'}`} {...rest}/>)
     }
 }

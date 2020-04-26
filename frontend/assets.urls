@@ -1,5 +1,5 @@
 css/app.css
-js/app.js
+js/boot.js
 svg/startup.svg
 svg/loading.svg
 worker.js

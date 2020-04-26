@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build --no-source-maps -d dist/frontend index.hbs.html",
+    "devbuild": "NODE_ENV=development  parcel build --no-minify -d dist/frontend index.hbs.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
