@@ -4,3 +4,5 @@ svg/startup.svg
 svg/loading.svg
 worker.js
 node_modules/react-reader/lib/index.js
+images/ios/add-to-homescreen-button.png
+images/ios/settings-button.png

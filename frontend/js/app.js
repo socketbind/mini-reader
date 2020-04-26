@@ -86,7 +86,7 @@ class App extends React.Component {
       <div className="toolbar">
         <FontSizeButton variant="decrease" onClick={this.decreaseFontSize} />
         <FontSizeButton variant="increase" onClick={this.increaseFontSize} />
-        <InfoButton onClick={this.toggleInfo}/>
+        <InfoButton onClick={this.toggleGeneralInfo}/>
       </div>
       <GeneralInfoPanel show={this.state.showGeneralInfo} onClose={this.toggleGeneralInfo}/>
       <IOSInfoPanel show={this.state.showIosInfo} onClose={this.toggleGeneralInfo} />

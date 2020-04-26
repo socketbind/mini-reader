@@ -1,13 +1,18 @@
 import React from 'react';
 import settingsButton from '../images/ios/settings-button.png';
 import addToHomescreenButton from '../images/ios/add-to-homescreen-button.png';
+import {CSSTransition} from "react-transition-group";
 
 export class InfoPanel extends React.Component {
 
     render() {
-        return (<div className={`info-panel ${!!this.props.show ? "show" : ""}`}>
-            {this.props.children}
-        </div>)
+        return (
+            <CSSTransition in={this.props.show} classNames="info-panel" unmountOnExit timeout={300}>
+                <div className="info-panel">
+                    {this.props.children}
+                </div>
+            </CSSTransition>
+        )
     }
 
 }

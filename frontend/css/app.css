@@ -67,7 +67,6 @@ body {
     margin: 0;
     cursor: pointer;
 }
-
 .info-panel {
     position: absolute;
     left: 0;
@@ -75,11 +74,28 @@ body {
     right: 0;
     bottom: 0;
     z-index: 501;
-    opacity: 0;
-    height: 0;
-    transition: opacity .3s;
+    padding: 0 20%;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: #ffffff;
-    overflow: hidden;
+}
+
+.info-panel-enter {
+    opacity: 0;
+}
+
+.info-panel-enter-active {
+    opacity: 1;
+    transition: opacity .3s;
+}
+
+.info-panel-exit {
+    opacity: 1;
+}
+
+.info-panel-exit-active {
+    opacity: 0;
+    transition: opacity .3s;
 }
 
 .info-panel.show {
